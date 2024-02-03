@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImage from "../../assets/images/login/login.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
@@ -7,6 +7,9 @@ import { AuthContext } from "../../Providers/AuthProvider";
 const Login = () => {
 
   const {signInWithEmail} = useContext(AuthContext);
+  const location = useLocation();
+  console.log(location);
+  const navigate = useNavigate();
 
 
   const handleLogin = (event) => {
@@ -18,10 +21,13 @@ const Login = () => {
     signInWithEmail(email, password)
     .then(result => {
       console.log(result.user);
+      // navigate(location?.state ? location?.state : "/");
+      navigate(location?.state?.from?.pathname || "/");
     })
     .catch((error) => {
       console.log(error);
     })
+    form.reset();
 
   }
   return (

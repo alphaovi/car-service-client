@@ -7,7 +7,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 
 const SignUp = () => {
 
-    const {createUserWithEmail} = useContext(AuthContext)
+    const {createUserWithEmail, verify} = useContext(AuthContext)
 
     const handleSIgnUp =(event) => {
         event.preventDefault();
@@ -19,11 +19,19 @@ const SignUp = () => {
         createUserWithEmail(email, password) 
         .then(result => {
             const user = result.user;
+           if(result.emailVerified!= "true"){
+            verify();
+           }
+           else{
+            console.log("Failed Verify");
+           }
             console.log(user);
         })
         .then(error => {
             console.log(error); 
         })
+
+        form.reset();
     }
     return (
         <div className="hero min-h-screen bg-base-200">

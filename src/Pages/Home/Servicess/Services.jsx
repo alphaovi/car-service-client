@@ -5,12 +5,12 @@ import Service from "../SService/Service";
 const Services = () => {
     const [services, setServices] = useState([]);
     useEffect(() => {
-        fetch("services.json")
-        .then(res => res.json())
-        .then(data => {
-            setServices(data);
-        })
-    } , [])
+        fetch("http://localhost:5000/services")
+            .then(res => res.json())
+            .then(data => {
+                setServices(data);
+            })
+    }, [])
     return (
         <div className="mt-5">
             <div className="text-center">
@@ -20,7 +20,7 @@ const Services = () => {
             </div>
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {
-                    services.map(service => <Service 
+                    services.map(service => <Service
                         key={service._id}
                         service={service}
 
